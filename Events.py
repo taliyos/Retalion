@@ -6,25 +6,40 @@ class Events():
     """Listens for User Input"""
     def  __init__(this):
         this.leftClick = False
-        this.rightClick = False
-        this.Left = False
-        this.Right = False
-        this.Up = False
-        this.Down = False
+        this.left = False
+        this.right = False
+        this.up = False
+        this.down = False
 
     def Update(this):
-        this.leftClick = False
-        this.rightClick = False
         for event in pygame.event.get(): # Checks each event
-            print(event);
+
             if (event.type == QUIT): # Application closed
                 sys.exit(0)
 
-            if (pygame.mouse.get_pressed()[0]): # Left mouse click
+            if (event.type == MOUSEBUTTONDOWN): # Left mouse click
                 this.leftClick = True
 
-            if (pygame.mouse.get_pressed()[1]): # Right mouse clicks
-                this.rightClick = True
+            elif (event.type == MOUSEBUTTONUP): # Right mouse clicks
+                this.leftClick = False
+               
+            if (event.type == KEYDOWN):
+                if (event.key == K_LEFT):
+                    this.left = True
+                elif (event.key == K_RIGHT):
+                    this.right = True
+                elif (event.key == K_UP):
+                    this.up = True
+                elif (event.key == K_DOWN):
+                    this.down = True
 
-            #if (pygame.key.get_pressed()[)
+            if (event.type == KEYUP):
+                if (event.key == K_LEFT):
+                    this.left = False
+                elif (event.key == K_RIGHT):
+                    this.right = False
+                elif (event.key == K_UP):
+                    this.up = False
+                elif (event.key == K_DOWN):
+                    this.down = False
 
