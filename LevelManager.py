@@ -1,9 +1,12 @@
+from MainMenu import *
+
 class LevelManager():
     """Keeps track of Game Status"""
     def __init__(this, screen):
        this.screen = screen
        this.currentWindow = 0
        this.gameState = -1
+       this.mainMenu = MainMenu(screen)
 
     def Update(this):
         this.UpdateWindow()
@@ -11,7 +14,7 @@ class LevelManager():
     def UpdateWindow(this):
         if (this.currentWindow == 0):
             # Main Menu
-            this.screen.fill((250,100,100))
+            this.mainMenu.Update(this.gameState)
         elif (this.currentWindow == 1):
             # Game
             print("Game")
