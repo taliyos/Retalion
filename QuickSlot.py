@@ -18,6 +18,7 @@ def __init__(): # Intitalizes program
         Game()
 def Game(): # Master Game update
     eventHandler.Update()
+    display.Update()
     display.TidyFrame()
 
 __init__()
