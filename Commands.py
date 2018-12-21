@@ -1,7 +1,9 @@
 from enum import Enum
 
-Command = Enum('LevelChange')
+class Command(Enum):
+    LevelChange = 0
 
 
-def CommandHandler():
-    print("hi")
+def CommandHandler(command, commandParameter):
+    if (command == Command.LevelChange):
+        print("Command issued")
