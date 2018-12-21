@@ -12,10 +12,11 @@ def __init__(): # Intitalizes program
     eventHandler = Events() # Listens for mouse and keyboard clicks
 
     global display
-    display = Display() # Initializes the Display
+    display = Display(eventHandler) # Initializes the Display
 
     while True:
         Game()
+
 def Game(): # Master Game update
     eventHandler.Update()
     display.Update()

@@ -43,4 +43,8 @@ class Text():
             coords = (this.x - textInfo.center[0], this.y)
         this.screen.blit(text, coords) # Puts text on the screen
         this.frame+=1
+
+    def UpdatePosition(this, x, y):
+        this.x = x
+        this.y = y
         

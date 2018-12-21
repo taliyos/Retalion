@@ -43,3 +43,5 @@ class Events():
                 elif (event.key == K_DOWN):
                     this.down = False
 
+    def GetMouseDown(this):
+        return this.leftClick

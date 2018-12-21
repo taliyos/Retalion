@@ -4,11 +4,12 @@ from LevelManager import *
 
 class Display():
     """Generates and maintains the Screen"""
-    def __init__(this):
+    def __init__(this, events):
         this.WIDTH = 600
         this.HEIGHT = 800
+        this.events = events
         this.screen = pygame.display.set_mode((this.WIDTH, this.HEIGHT))
-        this.levelManager = LevelManager(this.screen)
+        this.levelManager = LevelManager(this.screen, this.events)
 
     def Update(this): # Draws to the screen
         this.levelManager.Update()
