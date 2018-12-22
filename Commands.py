@@ -4,6 +4,6 @@ class Command(Enum):
     LevelChange = 0
 
 
-def CommandHandler(command, commandParameter):
+def CommandHandler(levelManager, command, commandParameter):
     if (command == Command.LevelChange):
-        print("Command issued")
+        levelManager.SetWindow(commandParameter)

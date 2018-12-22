@@ -7,10 +7,11 @@ import Commands
 
 class Button():
     """Creates a clickable button"""
-    def __init__(this, screen, events, command, commandParameter, txt, x, y, sizeX, sizeY, btnCol, hvrCol, psdCol, txtCol, fadeIn, speed):
+    def __init__(this, screen, events, levelManager, command, commandParameter, txt, x, y, sizeX, sizeY, btnCol, hvrCol, psdCol, txtCol, fadeIn, speed):
         ### Universal Componenets
         this.screen = screen # used to display button
         this.events = events # gets events
+        this.levelManager = levelManager
 
         ### Commands
         this.command = command # button pressed action
@@ -62,7 +63,7 @@ class Button():
                 this.pressed = True
             elif (not this.events.GetMouseDown() and this.pressed):
                 this.pressed = False
-                Commands.CommandHandler(this.command, this.commandParameter)
+                Commands.CommandHandler(this.levelManager, this.command, this.commandParameter)
             elif (not this.events.GetMouseDown() and not this.pressed):
                 this.hover = True
         else:

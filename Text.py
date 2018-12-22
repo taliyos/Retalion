@@ -20,7 +20,6 @@ class Text():
         this.fadeInLeft = fadeInLeft
         this.fadeInTop = fadeInTop
         this.fadeColor = fadeColor
-        this.frame = 0
         if (fadeInLeft):
             this.x = startX
         if (fadeInTop):
@@ -42,7 +41,6 @@ class Text():
         if (this.center):
             coords = (this.x - textInfo.center[0], this.y)
         this.screen.blit(text, coords) # Puts text on the screen
-        this.frame+=1
 
     def UpdatePosition(this, x, y):
         this.x = x
