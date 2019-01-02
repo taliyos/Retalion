@@ -45,4 +45,13 @@ class Text():
     def UpdatePosition(this, x, y):
         this.x = x
         this.y = y
+
+    def SetText(this, text):
+        this.text = text
+
+    def GetText(this):
+        return this.text
+
+    def SetColor(this, color):
+        this.color = color
         

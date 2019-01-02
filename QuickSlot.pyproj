@@ -30,6 +30,9 @@
     <Compile Include="Events.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Game.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LevelManager.py">
       <SubType>Code</SubType>
     </Compile>
