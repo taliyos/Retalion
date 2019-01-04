@@ -13,7 +13,7 @@ class LevelManager():
         this.gameState = -1
 
         this.mainMenu = MainMenu(screen, events, this)
-        this.game = Game(screen, events, this)
+        this.game = this.mainMenu
 
     def Update(this):
         this.UpdateWindow()
@@ -37,5 +37,9 @@ class LevelManager():
 
     def SetWindow(this, window):
         this.currentWindow = window
+        if (window == 0):
+            this.mainMenu = MainMenu(this.screen, this.events, this)
+        elif (window == 1):
+            this.game = Game(this.screen, this.events, this)
 
 

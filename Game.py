@@ -1,6 +1,7 @@
 import pygame
 from Text import *
 from Player import *
+from BonusEnemy import *
 from random import randint
 
 class Game():
@@ -26,6 +27,10 @@ class Game():
 
         # Objects
         this.player = Player(screen, events)
+        this.bonusEnemies = BonusEnemy(screen)
+        #for x in range(0,5):
+        #    this.bonusEnemies.append(BonusEnemy())
+
 
         this.SetState(0)
 
@@ -40,6 +45,7 @@ class Game():
     def BonusRound(this):
         # Game
         this.player.Update()
+        this.bonusEnemies.Update()
 
         # Intro Text
         colorChange = True

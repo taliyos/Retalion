@@ -9,8 +9,8 @@ class Player():
         this.events = events
 
         # Player Properties
-        this.speed = 7
-        this.rotSpeed = 4.6
+        this.speed = 8.77
+        this.rotSpeed = 6.89
         this.image = 0 # TODO
         this.x = 300
         this.y = 300
@@ -26,6 +26,7 @@ class Player():
     def Update(this):
         if (this.CheckControls()):
             this.Movement()
+        this.ClampBoundaries()
         this.Draw()
 
     def CheckControls(this):
@@ -35,31 +36,32 @@ class Player():
             return False
 
     def Movement(this):
-        #print(this.rot)
         this.rot += this.rotSpeed * -this.events.GetHorizontal()
         this.rot %= 360
 
-        #this.playerRect.x += this.speed * this.events.GetHorizontal()
-        #this.playerRect.y += this.speed * this.events.GetVertical()
-        #print(cos(2*pi))
         this.x += -this.speed * this.events.GetVertical() * cos((this.rot + 90) * (pi/180))
         this.y += this.speed * this.events.GetVertical() * sin((this.rot + 90) * (pi/180))
-        print(cos(this.rot * (pi/180)))
-        #print(sin(this.rot))
-        print()
-        #this.y += this.speed * this.events.GetVertical()
-        #this.x += this.speed * this.events.GetHorizontal()
 
     def Draw(this):
-        #pygame.draw.rect(this.screen, this.color, pygame.Rect(this.x - this.size[0]/2, this.y - this.size[1]/2, this.size[0], this.size[1]))
         surface = pygame.transform.rotate(this.player, this.rot)
         this.playerRect = surface.get_rect()
-        this.playerRect.center = (this.x - 25, this.y-25)
+        this.playerRect.center = (this.x, this.y)
         this.screen.blit(surface, this.playerRect)
         
     def UpdateControls(this):
         if (this.state):
             print("BONUS ROUND CONTROLS")
+
+    def ClampBoundaries(this):
+        if (this.x > this.screen.get_width()):
+            this.x = this.screen.get_width()
+        elif (this.x < 0):
+            this.x = 0
+
+        if (this.y > this.screen.get_height()):
+            this.y = this.screen.get_height()
+        elif (this.y < 0):
+            this.y = 0
             
     def SetState(this, state):
         this.state = state
