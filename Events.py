@@ -45,3 +45,19 @@ class Events():
 
     def GetMouseDown(this):
         return this.leftClick
+
+    def GetHorizontal(this):
+        if (this.left == this.right):
+            return 0
+        elif (this.left):
+            return -1
+        else:
+            return 1
+
+    def GetVertical(this):
+        if (this.up == this.down):
+            return 0
+        elif (this.up):
+            return -1
+        else:
+            return 1
