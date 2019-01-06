@@ -11,8 +11,6 @@ class BonusEnemy():
 
         this.player = player
 
-        this.stage = -1 # Current Stage
-
         this.center = (this.screen.get_width()/2, this.screen.get_height()/2) # Center of screen
 
         ### Laser
@@ -22,8 +20,9 @@ class BonusEnemy():
          
         ### Stage Variables
         this.level = 0
-        this.speed = 5
+        this.speed = 10
         this.rotation = []
+        this.stage = -1
 
         ### Stage 1 Variables
         this.radius = 500
@@ -31,9 +30,9 @@ class BonusEnemy():
         this.laserY = []
 
         ### Stage 2 Variables
-        this.fireRate = 80
+        this.fireRate = 2
         this.fireTime = -1
-        this.currentLasers = 0
+        this.currentLasers = -1
      
     def Update(this):
         if (this.stage == -1):
@@ -59,10 +58,9 @@ class BonusEnemy():
         rotation = atan2(yDistance, xDistance)
         this.rotation.append(rotation * (180/pi) + 90)
 
-    def LaserPattern1(this, storeRotation = True):
-        for rotation in range(-4500,2*31415,4500):
+    def LaserPattern1(this, increment = 4500, storeRotation = True):
+        for rotation in range(-4500,2*31415,increment):
             angle = rotation/10000
-            print(angle)
             x = this.radius * cos(angle)
             y = this.radius * sin(angle)
             this.laserX.append(x + this.center[0])
@@ -74,28 +72,29 @@ class BonusEnemy():
                 this.rotation.append(rotation * 180/pi + 90)
 
     def LaserPattern2(this):
-        this.currentLasers = 0
+        this.currentLasers = -1
         this.fireTime = -1
-        this.LaserPattern1(False)
-        i = 0
-        for rotation in range(-4500, 2 * 31415, 4500):
-            xDistance = this.laserX[i] - this.player.GetPosition()[0]
-            yDistance = this.player.GetPosition()[1] - this.laserY[i]
-            rotation = atan2(yDistance, xDistance)
-            this.rotation.append(rotation * 180/pi + 90)
-            i+=1
+        this.LaserPattern1(500, False)
+        
 
     def CheckStage(this):
         if (this.stage == 2):
-            if (this.currentLasers == len(this.laserX)):
+            if (this.currentLasers == len(this.laserX) - 1):
                 return
-            if (this.fireTime == this.fireRate):
+            if (this.fireTime == this.fireRate or this.currentLasers == -1):
                 this.currentLasers += 1
-                this.fireTime = 0 # Unchecked, this variable could cause a crash
+                xDistance = this.laserX[this.currentLasers] - this.player.GetPosition()[0]
+                yDistance = this.player.GetPosition()[1] - this.laserY[this.currentLasers]
+                rotation = atan2(yDistance, xDistance)
+                this.rotation.append(rotation * 180/pi + 90)
+                this.fireTime = -1 # Unchecked, this variable could cause a crash
             this.fireTime+=1
+            
     def Draw(this):
         lasersToRemove = 0
         for i in range(0,len(this.laserX) - 1):
+            if (this.stage == 2 and this.currentLasers < i):
+               return
             surface = pygame.transform.rotate(this.laser, this.rotation[i])
             position = pygame.Rect(this.laserX[i]-this.size[0]/2, this.laserY[i]-this.size[1]/2, this.size[0], this.size[1])
             position = surface.get_rect(center = position.center)
@@ -108,7 +107,6 @@ class BonusEnemy():
             if (this.stage == 0 and (this.laserX[i] > 950 or this.laserX[i] < -350)):
                 lasersToRemove += 1
         while (lasersToRemove  != 0):
-            print("REMOVING LASER")
             this.laserX.pop()
             this.laserY.pop()
             this.rotation.pop()

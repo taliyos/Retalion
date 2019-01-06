@@ -48,14 +48,12 @@ class Game():
         if (not this.FlashingText()):
             this.textStage+=1
             this.ChangeText(this.textStage)
-            print(this.textStage)
         
         
     def FlashingText(this):
         if (this.textStage > 5):
             return True
         if (this.bonusFrame < 75):
-            print("CHECK 2")
             if (this.bonusFrame % 75 == 0):
                 this.textColor+=1
                 if (this.textColor == len(this.colorList)):

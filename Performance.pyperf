@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<ProfilingTarget xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectTarget>
+    <TargetProject>8761026f-f5b7-4691-98f1-35d52ceb1553</TargetProject>
+    <FriendlyName>QuickSlot</FriendlyName>
+  </ProjectTarget>
+  <Reports />
+  <UseVTune>false</UseVTune>
+</ProfilingTarget>
