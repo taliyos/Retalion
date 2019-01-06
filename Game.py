@@ -1,7 +1,7 @@
 import pygame
 from Text import *
 from Player import *
-from BonusEnemy import *
+from PatternManager import *
 from random import randint
 
 class Game():
@@ -27,7 +27,7 @@ class Game():
 
         # Objects
         this.player = Player(screen, events)
-        this.bonusEnemies = BonusEnemy(screen, events, this.player)
+        this.bonusEnemies = PatternManager(screen, events, this.player)
 
         this.SetState(0)
 

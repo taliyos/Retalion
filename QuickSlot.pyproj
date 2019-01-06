@@ -21,7 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BonusEnemy.py">
+    <Compile Include="PatternManager.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Button.py">
@@ -40,6 +40,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MainMenu.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Patterns.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Player.py">

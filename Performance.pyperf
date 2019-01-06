@@ -4,6 +4,10 @@
     <TargetProject>8761026f-f5b7-4691-98f1-35d52ceb1553</TargetProject>
     <FriendlyName>QuickSlot</FriendlyName>
   </ProjectTarget>
-  <Reports />
+  <Reports>
+    <Report>
+      <Filename>C:\Users\Charles\AppData\Local\Temp\Performance_20190106(4).vsp</Filename>
+    </Report>
+  </Reports>
   <UseVTune>false</UseVTune>
 </ProfilingTarget>
