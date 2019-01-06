@@ -14,7 +14,7 @@ class MainMenu():
         this.events = events
         this.levelManager = levelManager
 
-        this.title = Text(screen, "QuickSlot", screen.get_width()/2, 20, (225,240,230), 30, "Fonts/Roboto.ttf", True, True, True, True, this.screen.get_width()/8, -100, 12)
+        this.title = Text(screen, "Retalion", screen.get_width()/2, 20, (225,240,230), 30, "Fonts/Roboto.ttf", True, True, True, True, this.screen.get_width()/8, -100, 12)
         this.button = Button(screen, events, this.levelManager, Command.LevelChange, 1, "Play", screen.get_width()/2, 300, 200, 50, (100,250,100), (150,255,150), (75,225,75), (0,0,0), True, 11)
 
     def Update(this, gameState):

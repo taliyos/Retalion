@@ -9,6 +9,7 @@ class Display():
         this.HEIGHT = 800
         this.events = events
         this.screen = pygame.display.set_mode((this.WIDTH, this.HEIGHT))
+        pygame.display.set_caption("Retalion")
         this.levelManager = LevelManager(this.screen, this.events)
 
     def Update(this): # Draws to the screen
