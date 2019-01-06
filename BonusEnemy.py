@@ -37,6 +37,10 @@ class BonusEnemy():
         ### Stage 3 Variables
         this.stage3Pos = []
         this.stage3Rot = []
+
+        ### Stage 4 Variables
+        this.stage4Pos = []
+        this.stage4Rot = []
      
     def Update(this):
         if (this.stage == -1):
@@ -47,7 +51,7 @@ class BonusEnemy():
             this.LaserPattern2()
             this.stage = 2
         elif (this.stage < -1):
-            this.LaserPattern3(25, (100,150))
+            this.LaserPattern4()
             this.stage = 5
         this.CheckStage()
         this.Draw()
@@ -111,6 +115,18 @@ class BonusEnemy():
                 distance = Vector2(x - center[0], center[1] - y)
                 this.stage3Rot.append(atan2(distance.y, distance.x) * 180/pi + 90)
 
+    def LaserPattern4(this, radius = 200, increment = 4500):
+        """Offset Rotation, Circle moves across stage"""
+        for rotation in range(-4500,2*31415,increment):
+            angle = (rotation)/10000
+            angle2 = (rotation+increment)/10000
+            x = radius * cos(angle)
+            y = radius * sin(angle)
+            x2 = radius * cos(angle2)
+            y2 = radius * sin(angle2)
+            this.stage4Pos.append(Vector2(x + this.center[0], y + this.center[1]))
+            rotation = atan2(-y2, x2)
+            this.stage4Rot.append(rotation * 180/pi + 90)
 
     def CheckStage(this):
         """Adds rotational values to pattern 2 lasers"""
@@ -157,3 +173,12 @@ class BonusEnemy():
             
             this.stage3Pos[i].x -= cos((90-this.stage3Rot[i]) * pi/180) * this.speed
             this.stage3Pos[i].y -= sin((90-this.stage3Rot[i]) * pi/180) * this.speed
+
+        for i in range (0, len(this.stage4Pos) - 1):
+            surface = pygame.transform.rotate(this.laser, this.stage4Rot[i])
+            position = pygame.Rect(this.stage4Pos[i].x-this.size[0]/2, this.stage4Pos[i].y-this.size[1]/2, this.size[0], this.size[1])
+            position = surface.get_rect(center = position.center)
+            this.screen.blit(surface, position)
+            
+            this.stage4Pos[i].x -= cos((90-this.stage4Rot[i]) * pi/180) * this.speed
+            this.stage4Pos[i].y -= sin((90-this.stage4Rot[i]) * pi/180) * this.speed
