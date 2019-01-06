@@ -53,15 +53,15 @@ class Player():
             print("BONUS ROUND CONTROLS")
 
     def ClampBoundaries(this):
-        if (this.x > this.screen.get_width()):
-            this.x = this.screen.get_width()
-        elif (this.x < 0):
-            this.x = 0
+        if (this.x > this.screen.get_width() + this.size[0]/2):
+            this.x = -this.size[0]/2 + 1
+        elif (this.x < -this.size[0]/2):
+            this.x = this.screen.get_width() + this.size[0]/2 - 1
 
-        if (this.y > this.screen.get_height()):
-            this.y = this.screen.get_height()
-        elif (this.y < 0):
-            this.y = 0
+        if (this.y > this.screen.get_height() + this.size[1]/2):
+            this.y = -this.size[1]/2 + 1
+        elif (this.y < -this.size[1]/2):
+            this.y = this.screen.get_height() + this.size[1]/2 - 1
             
     def SetState(this, state):
         this.state = state
