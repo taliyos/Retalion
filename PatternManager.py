@@ -27,6 +27,7 @@ class PatternManager():
 
         this.patternWait = 250
         this.time = 0
+        this.totalTime = 0
 
         ### Stage 1 Variables
         this.p1 = []
@@ -37,6 +38,8 @@ class PatternManager():
         this.fireRate = 2
         this.fireTime = -1
         this.currentLasers = -1
+        this.buffer = 10
+        this.bufferTime =0
 
         ### Stage 3 Variables
         this.p3 = []
@@ -48,17 +51,23 @@ class PatternManager():
         this.AddPattern()
         this.UpdatePatterns()
         this.Draw()
+        this.totalTime+=1
+        if (this.totalTime == 1000):
+            this.player.ChangeHP(1)
+            this.totalTime=0
+        if (this.bufferTime != 10):
+            this.bufferTime +=1
 
     def AddPattern(this):
         if (this.patternWait > this.time):
             this.time += 1
             return
         this.time = 0
+        this.patternWait = randint(100,250)
 
         choice = randint(0,3)
         center = Vector2(randint(50, this.screen.get_width()-50), randint(50, this.screen.get_height()-50))
         speed = randint(8,12)
-        choice = 0
         if (choice == 0):
             this.p1.append(CirclePattern(this.screen, this.laser, this.size, speed, this.radius, center))
         elif (choice == 1):
@@ -91,28 +100,43 @@ class PatternManager():
                 i-=1
 
     def Draw(this):
-        print(len(this.p1) - 1)
         for i in range(-1,len(this.p1) - 1):
             for j in range(0,len(this.p1[i].pos) - 1):
                 surface = pygame.transform.rotate(this.laser, this.p1[i].rot[j])
                 position = pygame.Rect(this.p1[i].pos[j].x-this.size[0]/2, this.p1[i].pos[j].y-this.size[1]/2, this.size[0], this.size[1])
                 position = surface.get_rect(center = position.center)
                 this.screen.blit(surface, position)
+                if (this.Collision(position)):
+                    this.OnCollision()
         for i in range(-1,len(this.p2) - 1):
             for j in range(0,len(this.p2[i].rot) - 1):
                 surface = pygame.transform.rotate(this.laser, this.p2[i].rot[j])
                 position = pygame.Rect(this.p2[i].pos[j].x-this.size[0]/2, this.p2[i].pos[j].y-this.size[1]/2, this.size[0], this.size[1])
                 position = surface.get_rect(center = position.center)
                 this.screen.blit(surface, position)
+                if (this.Collision(position)):
+                    this.OnCollision()
         for i in range(-1,len(this.p3) - 1):
             for j in range(0,len(this.p3[i].pos) - 1):
                 surface = pygame.transform.rotate(this.laser, this.p3[i].rot[j])
                 position = pygame.Rect(this.p3[i].pos[j].x-this.size[0]/2, this.p3[i].pos[j].y-this.size[1]/2, this.size[0], this.size[1])
                 position = surface.get_rect(center = position.center)
                 this.screen.blit(surface, position)
+                if (this.Collision(position)):
+                    this.OnCollision()
         for i in range(-1,len(this.p4) - 1):
             for j in range(0,len(this.p4[i].pos) - 1):
                 surface = pygame.transform.rotate(this.laser, this.p4[i].rot[j])
                 position = pygame.Rect(this.p4[i].pos[j].x-this.size[0]/2, this.p4[i].pos[j].y-this.size[1]/2, this.size[0], this.size[1])
                 position = surface.get_rect(center = position.center)
                 this.screen.blit(surface, position)
+                if (this.Collision(position)):
+                    this.OnCollision()
+
+    def Collision(this, laser):
+        return laser.colliderect(this.player.playerRect)
+
+    def OnCollision(this):
+        if (this.bufferTime == 10):
+            this.player.ChangeHP(-1)
+            this.bufferTime = 0

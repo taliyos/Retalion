@@ -21,6 +21,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GameOver.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PatternManager.py">
       <SubType>Code</SubType>
     </Compile>

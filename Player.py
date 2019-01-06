@@ -1,15 +1,17 @@
 import pygame
 from math import *
+from Text import *
 
 class Player():
     """The Player"""
-    def __init__(this, screen, events):
+    def __init__(this, screen, events, levelManager):
         ### Universal Components
         this.screen = screen
         this.events = events
+        this.levelManager = levelManager
 
         # Player Properties
-        this.speed = 8.77
+        this.speed = 6.8
         this.rotSpeed = 6.89
         this.image = 0 # TODO
         this.x = 300
@@ -19,6 +21,8 @@ class Player():
         this.color = (235,235,235)
         this.player = pygame.image.load("Images/Player.png").convert_alpha()
         this.playerRect = this.player.get_rect()
+        this.hp = 3
+        this.hpText = Text(screen, ("Health: " + str(this.hp)), 5, 5, (255,255,255), 18, "Fonts/Roboto.ttf", False, False, False, False, 0, 0 , 0)
 
         # State-Specific Properties
         this.state = 0
@@ -47,10 +51,8 @@ class Player():
         this.playerRect = surface.get_rect()
         this.playerRect.center = (this.x, this.y)
         this.screen.blit(surface, this.playerRect)
+        this.hpText.Draw()
         
-    def UpdateControls(this):
-        if (this.state):
-            print("BONUS ROUND CONTROLS")
 
     def ClampBoundaries(this):
         if (this.x > this.screen.get_width() + this.size[0]/2):
@@ -65,7 +67,12 @@ class Player():
             
     def SetState(this, state):
         this.state = state
-        this.UpdateControls()
 
     def GetPosition(this):
         return (this.x, this.y)
+
+    def ChangeHP(this, amount):
+        this.hp += amount
+        if (this.hp == 0):
+            this.levelManager.SetWindow(2)
+        this.hpText.SetText("Health: " + str(this.hp))

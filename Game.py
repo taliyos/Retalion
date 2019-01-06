@@ -26,14 +26,17 @@ class Game():
         this.textStage = 0
 
         # Objects
-        this.player = Player(screen, events)
+        this.player = Player(screen, events, levelManager)
         this.bonusEnemies = PatternManager(screen, events, this.player)
+
+        this.time = 0
 
         this.SetState(0)
 
     def Update(this):
         this.screen.fill((15,15,15))
         this.UpdateState()
+        this.time += 1
 
     def UpdateState(this):
         if (this.state == 0):
