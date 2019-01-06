@@ -36,9 +36,10 @@ class BonusEnemy():
      
     def Update(this):
         if (this.stage == -1):
-            this.LaserPattern1()
+            this.LaserPattern1(4500, True, (200,200))
             this.stage = 0
         elif (this.stage == 1):
+            print("STAGE 2")
             this.LaserPattern2()
             this.stage = 2
         this.CheckStage()
@@ -58,17 +59,17 @@ class BonusEnemy():
         rotation = atan2(yDistance, xDistance)
         this.rotation.append(rotation * (180/pi) + 90)
 
-    def LaserPattern1(this, increment = 4500, storeRotation = True):
+    def LaserPattern1(this, increment = 4500, storeRotation = True, center = -1):
+        if (center == -1):
+            center = this.center
         for rotation in range(-4500,2*31415,increment):
             angle = rotation/10000
             x = this.radius * cos(angle)
             y = this.radius * sin(angle)
-            this.laserX.append(x + this.center[0])
-            this.laserY.append(y + this.center[1])
-            xDistance = x + this.center[0] - this.center[0]
-            yDistance = this.center[1] - (y+this.center[1])
+            this.laserX.append(x + center[0])
+            this.laserY.append(y + center[1])
             if (storeRotation):
-                rotation = atan2(yDistance, xDistance)
+                rotation = atan2(-y, x)
                 this.rotation.append(rotation * 180/pi + 90)
 
     def LaserPattern2(this):
@@ -94,8 +95,9 @@ class BonusEnemy():
         lasersToRemove = 0
         for i in range(0,len(this.laserX) - 1):
             if (this.stage == 2 and this.currentLasers < i):
-               return
-            surface = pygame.transform.rotate(this.laser, this.rotation[i])
+                surface = pygame.transform.rotate(this.laser, 0)
+            else:
+                surface = pygame.transform.rotate(this.laser, this.rotation[i])
             position = pygame.Rect(this.laserX[i]-this.size[0]/2, this.laserY[i]-this.size[1]/2, this.size[0], this.size[1])
             position = surface.get_rect(center = position.center)
             this.screen.blit(surface, position)
@@ -111,8 +113,9 @@ class BonusEnemy():
             this.laserY.pop()
             this.rotation.pop()
             lasersToRemove-=1
-            this.stage += 1
 
+        if (len(this.laserX) == 1):
+            this.stage += 1
 
 
 
