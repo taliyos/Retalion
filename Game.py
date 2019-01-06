@@ -27,10 +27,7 @@ class Game():
 
         # Objects
         this.player = Player(screen, events)
-        this.bonusEnemies = BonusEnemy(screen)
-        #for x in range(0,5):
-        #    this.bonusEnemies.append(BonusEnemy())
-
+        this.bonusEnemies = BonusEnemy(screen, events, this.player)
 
         this.SetState(0)
 
@@ -48,29 +45,22 @@ class Game():
         this.bonusEnemies.Update()
 
         # Intro Text
-        colorChange = True
-        if (this.textStage != 0):
-            colorChange = False
-        if (not this.FlashingText(colorChange)):
+        if (not this.FlashingText()):
             this.textStage+=1
             this.ChangeText(this.textStage)
             print(this.textStage)
         
         
-    def FlashingText(this, colorChange):
+    def FlashingText(this):
         if (this.textStage > 5):
             return True
-        if (this.bonusFrame < 150):
-            if (this.frameTime < this.bonusFrame):
-                this.frameTime = this.bonusFrame + 8
-                if (colorChange):
-                    this.textState*=-1
-                    this.textColor+=1
-                    if (this.textColor == len(this.colorList)):
-                        this.textColor = 0
-                    this.stageText.SetColor(this.colorList[this.textColor])
-                else:
-                    this.stageText.SetColor(this.colorList[0])
+        if (this.bonusFrame < 75):
+            print("CHECK 2")
+            if (this.bonusFrame % 75 == 0):
+                this.textColor+=1
+                if (this.textColor == len(this.colorList)):
+                    this.textColor = 0
+            this.stageText.SetColor(this.colorList[this.textColor])
             if (this.textState == 1):
                 this.stageText.Draw()
             this.bonusFrame+=1
@@ -81,10 +71,11 @@ class Game():
 
     def ChangeText(this, textStage):
         if (textStage == 0):
-            this.stageText.SetText("BONUS ROUND")
+            this.stageText.SetText("Ready?")
         elif (textStage == 1):
-            print("GOOD")
-            this.stageText.SetText("Avoid the Lasers!")
+            this.stageText.SetText("Set...")
+        elif (textStage == 2):
+            this.stageText.SetText("GO!")
         else:
             this.stageText.SetText("")
         this.textState = 1
@@ -92,7 +83,7 @@ class Game():
 
     def SetState(this, state):
         if (state == 0):
-            this.stageText.SetText("BONUS ROUND")
+            this.stageText.SetText("Ready?")
             this.bonusFrame = 0
             this.player.SetState(state)
 

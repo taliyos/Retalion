@@ -13,11 +13,11 @@ class Player():
         this.rotSpeed = 6.89
         this.image = 0 # TODO
         this.x = 300
-        this.y = 300
+        this.y = 400
         this.rot = 0
         this.size = (50,50)
         this.color = (235,235,235)
-        this.player = pygame.image.load("Player.png").convert_alpha()
+        this.player = pygame.image.load("Images/Player.png").convert_alpha()
         this.playerRect = this.player.get_rect()
 
         # State-Specific Properties
@@ -66,3 +66,6 @@ class Player():
     def SetState(this, state):
         this.state = state
         this.UpdateControls()
+
+    def GetPosition(this):
+        return (this.x, this.y)
