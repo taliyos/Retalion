@@ -67,7 +67,7 @@ class PatternManager():
 
         choice = randint(0,3)
         center = Vector2(randint(50, this.screen.get_width()-50), randint(50, this.screen.get_height()-50))
-        speed = randint(8,12)
+        speed = randint(6,9)
         if (choice == 0):
             this.p1.append(CirclePattern(this.screen, this.laser, this.size, speed, this.radius, center))
         elif (choice == 1):
