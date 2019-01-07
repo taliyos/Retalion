@@ -14,7 +14,7 @@ class GameOver():
         this.events = events
         this.levelManager = levelManager
 
-        this.time = time/60
+        this.time = round(time/60,2)
 
         this.title = Text(screen, "GAME OVER", screen.get_width()/2, 20, (225,240,230), 50, "Fonts/Roboto.ttf", True, False, False, False, 0, 0, 0)
         this.title = Text(screen, "You played for: " + str(this.time) + " seconds", screen.get_width()/2, 20, (225,240,230), 30, "Fonts/Roboto.ttf", True, False, False, False, 0, 0, 0)
