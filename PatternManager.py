@@ -23,7 +23,7 @@ class PatternManager():
         this.level = 0
         this.speed = 10
         this.stage = -55
-        this.timeToLive = 1800
+        this.timeToLive = 1000
 
         this.patternWait = 250
         this.time = 0
