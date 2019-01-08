@@ -71,14 +71,15 @@ class CirclePlayerPattern():
         this.radius = radius
         this.center = center
         this.time = 15
-        this.rate = 15
+        this.rate = 25
         this.currentLasers = -1
-        this.increment = randint(3500, 7000)
+        this.increment = 7500
 
         this.CreateLasers()
 
     def CreateLasers(this):
         for i in range (-4500, 2 * 31415, this.increment):
+            print("GO")
             angle = i/10000
             x = this.radius * cos(angle)
             y = this.radius * sin(angle)
@@ -144,8 +145,8 @@ class XPattern():
                 placement.x = 0
                 modifier.x = -1
             for j in range(0,this.lasersPerCorner):
-                x = ((j*100) + placement.x) * modifier.x
-                y = ((j*100) + placement.y) * modifier.y
+                x = ((j*135) + placement.x) * modifier.x
+                y = ((j*135) + placement.y) * modifier.y
                 this.pos.append(Vector2(x,y))
                 distance = Vector2(x - this.center.x, this.center.y - y)
                 this.rot.append(atan2(distance.y, distance.x) * 180/pi + 90)
@@ -180,9 +181,9 @@ class EnclosingCirclePattern():
         this.rot = []
 
         ### Pattern
-        this.radius = 500
+        this.radius = 650
         this.center = center
-        this.increment = randint(3000, 7000)
+        this.increment = 4500
 
         this.CreateLasers()
 
@@ -206,7 +207,6 @@ class EnclosingCirclePattern():
                 this.rot.pop()
         else:
             this.totalTime += 1
-
 
     def Finished(this):
         if (len(this.pos) == 0):
