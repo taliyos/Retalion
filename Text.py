@@ -54,4 +54,10 @@ class Text():
 
     def SetColor(this, color):
         this.color = color
+
+    def AddText(this, text):
+        this.text += text
+
+    def RemoveLetter(this):
+        this.text = this.text[:-1]
         

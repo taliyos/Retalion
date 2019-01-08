@@ -10,12 +10,12 @@ class LevelManager():
         this.events = events
 
         ### Window Options
-        this.currentWindow = 0
+        this.currentWindow = 2
         this.gameState = -1
 
         this.mainMenu = MainMenu(screen, events, this)
         this.game = this.mainMenu
-        this.gameOver = this.mainMenu
+        this.gameOver = GameOver(screen, events, this, 60)
 
     def Update(this):
         this.UpdateWindow()
