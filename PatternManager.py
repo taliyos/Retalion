@@ -1,7 +1,6 @@
 import pygame
 from pygame.math import Vector2
 from random import randint
-from math import *
 from Patterns import *
 
 class PatternManager():
@@ -63,7 +62,7 @@ class PatternManager():
             this.time += 1
             return
         this.time = 0
-        this.patternWait = randint(100,250)
+        this.patternWait = randint(75,175)
 
         choice = randint(0,3)
         center = Vector2(randint(50, this.screen.get_width()-50), randint(50, this.screen.get_height()-50))
@@ -73,9 +72,9 @@ class PatternManager():
         elif (choice == 1):
             this.p2.append(CirclePlayerPattern(this.screen, this.player, this.laser, this.size, speed, this.radius, this.center))
         elif (choice == 2):
-            this.p3.append(XPattern(this.screen, this.laser, this.size, speed, this.radius, center, randint(25,100)))
+            this.p3.append(XPattern(this.screen, this.laser, this.size, speed, this.radius, center, randint(5,12)))
         elif (choice == 3):
-            this.p4.append(EnclosingCirclePattern(this.screen, this.laser, this.size, speed, randint(20,250), center))
+            this.p4.append(EnclosingCirclePattern(this.screen, this.laser, this.size, speed, randint(10,11), center))
 
     def UpdatePatterns(this):
         for i in range(-1,len(this.p1) - 1):

@@ -108,7 +108,7 @@ class CirclePlayerPattern():
 
 
 class XPattern():
-    """Lasers Fire in X Pattern"""
+    """Lasers Fire in an X Pattern"""
     def __init__(this, screen, laser, size, speed, radius, center, lasersPerCorner, timeToLive = 1800):
         ### Universal Components
         this.screen = screen
