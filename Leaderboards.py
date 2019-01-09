@@ -24,16 +24,19 @@ class Leaderboards():
             file.close()
             file = open("leaderboards.txt", "r")
             scores = file.readlines()
+            file.close()
             seperatedScores = []
+            if (len(scores) < 5):
+                file = open("leaderboards.txt", "a")
+                file.write("\nCOMPUTER: 5 seconds")
+                file.close()
             for i in range(0, len(scores)):
                 textCut = str.split(scores[i], ": ")
                 textCut = str.split(textCut[1], " seconds")
                 seperatedScores.append((float(textCut[0]), i))
             seperatedScores.sort(reverse = True)
             for i in range(0, 5):
-                print(scores[seperatedScores[i][1]])
                 this.leaderboards[i].AddText(scores[seperatedScores[i][1]])
-            file.close()
             this.state = 2
         elif (this.state == 2):
             for i in range(0,5):
