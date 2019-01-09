@@ -21,13 +21,13 @@ class CirclePattern():
         this.pos = []
         this.rot = []
         this.frame = 0
-        this.inactiveFrames = 20
+        this.inactiveFrames = 50
         this.active = False
 
         ### Pattern
-        this.radius = 45
+        this.radius = 1
         this.center = center
-        this.increment = randint(3000,7500)
+        this.increment = 4500
 
         this.CreateLasers()
 
@@ -43,14 +43,17 @@ class CirclePattern():
     def Update(this):
         if (this.frame == this.inactiveFrames):
             this.active = True
-        this.pos = Move(this.pos, this.rot, this.speed)
-        if (this.totalTime == this.timeToLive):
-            while (len(this.pos) != 0):
-                this.pos.pop()
-                this.rot.pop()
+        if (this.active):
+            this.pos = Move(this.pos, this.rot, this.speed)
+            if (this.totalTime == this.timeToLive):
+                while (len(this.pos) != 0):
+                    this.pos.pop()
+                    this.rot.pop()
+            else:
+                this.totalTime += 1
         else:
-            this.totalTime += 1
-        this.frame+=1
+            this.frame+=1
+
 
     def Finished(this):
         if (len(this.pos) == 0):

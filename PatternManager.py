@@ -103,13 +103,14 @@ class PatternManager():
             for j in range(0,len(this.p1[i].pos) - 1):
                 if (this.p1[i].active):
                     surface = pygame.transform.rotate(this.laser, this.p1[i].rot[j])
+                    position = pygame.Rect(this.p1[i].pos[j].x - this.size[0] / 2,
+                    this.p1[i].pos[j].y - this.size[1] / 2, this.size[0], this.size[1])
+                    position = surface.get_rect(center=position.center)
+                    this.screen.blit(surface, position)
+                    if (this.Collision(position) and this.p1[i].active):
+                        this.OnCollision()
                 else:
-                    surface = pygame.transform.rotate(this.inactiveLaser, this.p1[i].rot[j])
-                position = pygame.Rect(this.p1[i].pos[j].x-this.size[0]/2, this.p1[i].pos[j].y-this.size[1]/2, this.size[0], this.size[1])
-                position = surface.get_rect(center = position.center)
-                this.screen.blit(surface, position)
-                if (this.Collision(position) and this.p1[i].active):
-                    this.OnCollision()
+                    pygame.draw.circle(this.screen, (50, 50 255), (int(this.p1[i].center.x), int(this.p1[i].center.y)), 10)
         for i in range(-1,len(this.p2) - 1):
             for j in range(0,len(this.p2[i].rot) - 1):
                 surface = pygame.transform.rotate(this.laser, this.p2[i].rot[j])
