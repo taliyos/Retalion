@@ -110,7 +110,7 @@ class PatternManager():
                     if (this.Collision(position) and this.p1[i].active):
                         this.OnCollision()
                 else:
-                    pygame.draw.circle(this.screen, (50, 50 255), (int(this.p1[i].center.x), int(this.p1[i].center.y)), 10)
+                    pygame.draw.circle(this.screen, (50, 50, 255), (int(this.p1[i].center.x), int(this.p1[i].center.y)), 10)
         for i in range(-1,len(this.p2) - 1):
             for j in range(0,len(this.p2[i].rot) - 1):
                 surface = pygame.transform.rotate(this.laser, this.p2[i].rot[j])
