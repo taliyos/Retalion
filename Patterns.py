@@ -14,15 +14,18 @@ class CirclePattern():
         ### Laser
         this.laser = laser
         this.size = size
-        this.speed = speed
+        this.speed = 6
         this.totalTime = 0
         this.timeToLive = timeToLive
 
         this.pos = []
         this.rot = []
+        this.frame = 0
+        this.inactiveFrames = 20
+        this.active = False
 
         ### Pattern
-        this.radius = radius
+        this.radius = 45
         this.center = center
         this.increment = randint(3000,7500)
 
@@ -38,6 +41,8 @@ class CirclePattern():
             this.rot.append(rotation * 180/pi + 90)
 
     def Update(this):
+        if (this.frame == this.inactiveFrames):
+            this.active = True
         this.pos = Move(this.pos, this.rot, this.speed)
         if (this.totalTime == this.timeToLive):
             while (len(this.pos) != 0):
@@ -45,6 +50,7 @@ class CirclePattern():
                 this.rot.pop()
         else:
             this.totalTime += 1
+        this.frame+=1
 
     def Finished(this):
         if (len(this.pos) == 0):
@@ -79,7 +85,6 @@ class CirclePlayerPattern():
 
     def CreateLasers(this):
         for i in range (-4500, 2 * 31415, this.increment):
-            print("GO")
             angle = i/10000
             x = this.radius * cos(angle)
             y = this.radius * sin(angle)

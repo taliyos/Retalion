@@ -27,7 +27,7 @@ class Game():
 
         # Objects
         this.player = Player(screen, events, levelManager)
-        this.bonusEnemies = PatternManager(screen, events, this.player)
+        this.bonusEnemies = 0
 
         this.time = 0
 
@@ -36,27 +36,35 @@ class Game():
     def Update(this):
         this.screen.fill((15,15,15))
         this.UpdateState()
-        this.time += 1
 
     def UpdateState(this):
         if (this.state == 0):
-            this.BonusRound()
+            this.Ready()
+        elif (this.state == 1):
+            this.MainGame()
 
-    def BonusRound(this):
+    def Ready(this):
         # Game
         this.player.Update()
-        this.bonusEnemies.Update()
 
         # Intro Text
         if (not this.FlashingText()):
-            this.textStage+=1
+            this.textStage += 1
             this.ChangeText(this.textStage)
-        
+        if (this.textStage == 3):
+            this.bonusEnemies = PatternManager(this.screen, this.events, this.player)
+            this.state = 1
+
+    def MainGame(this):
+        # Game
+        this.player.Update()
+        this.bonusEnemies.Update()
+        this.time += 1
         
     def FlashingText(this):
         if (this.textStage > 5):
             return True
-        if (this.bonusFrame < 75):
+        if (this.bonusFrame < 50):
             if (this.bonusFrame % 75 == 0):
                 this.textColor+=1
                 if (this.textColor == len(this.colorList)):

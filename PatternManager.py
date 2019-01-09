@@ -15,6 +15,7 @@ class PatternManager():
 
         ### Laser
         this.laser = pygame.image.load("Images/Laser.png").convert_alpha() # Laser image
+        this.inactiveLaser = pygame.image.load("Images/InactiveLaser.png").convert_alpha()
         this.size = (5,35)
         this.color = (255,0,0)
          
@@ -24,8 +25,8 @@ class PatternManager():
         this.stage = -55
         this.timeToLive = 1000
 
-        this.patternWait = 250
-        this.time = 0
+        this.patternWait = 150
+        this.time = -1
         this.totalTime = 0
 
         ### Stage 1 Variables
@@ -51,20 +52,20 @@ class PatternManager():
         this.UpdatePatterns()
         this.Draw()
         this.totalTime+=1
-        if (this.totalTime == 1000):
+        if (this.totalTime == 1200):
             this.player.ChangeHP(1)
             this.totalTime=0
         if (this.bufferTime != 10):
             this.bufferTime +=1
 
     def AddPattern(this):
-        if (this.patternWait > this.time):
+        if (this.time < this.patternWait and this.time != -1):
             this.time += 1
             return
         this.time = 0
         this.patternWait = 150
 
-        choice = 2
+        choice = 0
         center = Vector2(randint(50, this.screen.get_width()-50), randint(50, this.screen.get_height()-50))
         speed = 7
         if (choice == 0):
@@ -101,11 +102,14 @@ class PatternManager():
     def Draw(this):
         for i in range(-1,len(this.p1) - 1):
             for j in range(0,len(this.p1[i].pos) - 1):
-                surface = pygame.transform.rotate(this.laser, this.p1[i].rot[j])
+                if (this.p1[i].active):
+                    surface = pygame.transform.rotate(this.laser, this.p1[i].rot[j])
+                else:
+                    surface = pygame.transform.rotate(this.inactiveLaser, this.p1[i].rot[j])
                 position = pygame.Rect(this.p1[i].pos[j].x-this.size[0]/2, this.p1[i].pos[j].y-this.size[1]/2, this.size[0], this.size[1])
                 position = surface.get_rect(center = position.center)
                 this.screen.blit(surface, position)
-                if (this.Collision(position)):
+                if (this.Collision(position) and this.p1[i].active):
                     this.OnCollision()
         for i in range(-1,len(this.p2) - 1):
             for j in range(0,len(this.p2[i].rot) - 1):

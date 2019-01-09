@@ -13,7 +13,6 @@ class Player():
         # Player Properties
         this.speed = 6.8
         this.rotSpeed = 6.89
-        this.image = 0 # TODO
         this.x = 300
         this.y = 400
         this.rot = 0
