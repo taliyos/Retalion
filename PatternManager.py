@@ -64,7 +64,7 @@ class PatternManager():
         this.time = 0
         this.patternWait = 150
 
-        choice = randint(0,3)
+        choice = 2
         center = Vector2(randint(50, this.screen.get_width()-50), randint(50, this.screen.get_height()-50))
         speed = 7
         if (choice == 0):
@@ -134,7 +134,11 @@ class PatternManager():
                         this.OnCollision()
 
     def Collision(this, laser):
-        return laser.colliderect(this.player.playerRect)
+        playerRect = this.player.playerRect
+        playerRect = playerRect.inflate(-15,-15)
+        laser = laser.inflate(-5, -5)
+        return laser.colliderect(playerRect)
+
 
     def OnCollision(this):
         if (this.bufferTime == 10):
