@@ -9,35 +9,35 @@ class Leaderboards():
 
         this.time = time
         this.state = 0
-        this.textInput = Text(screen, "_", screen.get_width()/2, 250, (255,255,255), 18, "Fonts/Roboto.ttf", True, False, False, False, 0, 0, 0);
-        this.leaderboards = Text(screen, "", screen.get_width()/2, 250, (255,255,255), 18, "Fonts/Roboto.ttf", True, False, False, False, 0, 0, 0);
+        this.textInput = Text(screen, "", screen.get_width()/2, 250, (255,255,255), 18, "Fonts/Roboto.ttf", True, False, False, False, 0, 0, 0)
+        this.leaderboards = []
+        for i in range(0,5):
+            this.leaderboards.append(Text(screen, "", screen.get_width()/2 - 100, 250 + (25*i), (255,255,255), 18, "Fonts/Roboto.ttf", False, False, False, False, 0, 0, 0))
 
     def Update(this):
         if (this.state == 0):
             this.GetName();
             this.textInput.Draw()
         elif (this.state == 1):
-            file = open("leaderboards.txt", "r")
-            text = file.readlines()
-            times = []
-            times.append(-1)
-            for i in range(0, len(text)):
-                textCut = str.split(text[i], ": ")
-                time = str.split(textCut[1], " seconds")
-                times.append(i)
-            times.sort(reverse = True)
-            for i in range(0, len(times)):
-                if (times[i] == -1):
-                    this.leaderboards.AddText(this.textInput.GetText() + ": " + str(this.time) + " seconds")
-                else:
-                    this.leaderboards.AddText(text[times[i]]+"")
-            file.close()
             file = open("leaderboards.txt", "a")
-            file.write(this.textInput.GetText() + ": " + str(this.time) + " seconds")
+            file.write("\n"+this.textInput.GetText() + ": " + str(this.time) + " seconds")
+            file.close()
+            file = open("leaderboards.txt", "r")
+            scores = file.readlines()
+            seperatedScores = []
+            for i in range(0, len(scores)):
+                textCut = str.split(scores[i], ": ")
+                textCut = str.split(textCut[1], " seconds")
+                seperatedScores.append((float(textCut[0]), i))
+            seperatedScores.sort(reverse = True)
+            for i in range(0, 5):
+                print(scores[seperatedScores[i][1]])
+                this.leaderboards[i].AddText(scores[seperatedScores[i][1]])
             file.close()
             this.state = 2
         elif (this.state == 2):
-            this.leaderboards.Draw()
+            for i in range(0,5):
+                this.leaderboards[i].Draw()
 
     def GetName(this):
         if (this.events.key != -1):

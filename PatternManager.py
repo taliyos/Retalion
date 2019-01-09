@@ -21,7 +21,7 @@ class PatternManager():
          
         ### Stage Variables
         this.level = 0
-        this.speed = 10
+        this.speed = 7
         this.stage = -55
         this.timeToLive = 1000
 
@@ -54,6 +54,7 @@ class PatternManager():
         this.totalTime+=1
         if (this.totalTime == 1200):
             this.player.ChangeHP(1)
+            this.speed += 0.25
             this.totalTime=0
         if (this.bufferTime != 10):
             this.bufferTime +=1
@@ -64,18 +65,16 @@ class PatternManager():
             return
         this.time = 0
         this.patternWait = 150
-
-        choice = 0
+        choice = randint(0,3)
         center = Vector2(randint(50, this.screen.get_width()-50), randint(50, this.screen.get_height()-50))
-        speed = 7
         if (choice == 0):
-            this.p1.append(CirclePattern(this.screen, this.laser, this.size, speed, this.radius, center))
+            this.p1.append(CirclePattern(this.screen, this.laser, this.size, this.speed, this.radius, center))
         elif (choice == 1):
-            this.p2.append(CirclePlayerPattern(this.screen, this.player, this.laser, this.size, speed, this.radius, this.center))
+            this.p2.append(CirclePlayerPattern(this.screen, this.player, this.laser, this.size, this.speed, this.radius, this.center))
         elif (choice == 2):
-            this.p3.append(XPattern(this.screen, this.laser, this.size, speed, this.radius, center, randint(5,12)))
+            this.p3.append(XPattern(this.screen, this.laser, this.size, this.speed, this.radius, center, randint(5,12)))
         elif (choice == 3):
-            this.p4.append(EnclosingCirclePattern(this.screen, this.laser, this.size, speed, randint(10,11), center))
+            this.p4.append(EnclosingCirclePattern(this.screen, this.laser, this.size, this.speed, randint(10,11), center))
 
     def UpdatePatterns(this):
         for i in range(-1,len(this.p1) - 1):

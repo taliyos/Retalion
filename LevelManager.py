@@ -10,7 +10,7 @@ class LevelManager():
         this.events = events
 
         ### Window Options
-        this.currentWindow = 2
+        this.currentWindow = 0
         this.gameState = -1
 
         this.mainMenu = MainMenu(screen, events, this)
